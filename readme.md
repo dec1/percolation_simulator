@@ -25,7 +25,7 @@ marking a phase transition from low to high connectivity.
     an arbitraruly-sized 2D grid.
 
 ### Implementation
-  Details of the simulation.md of the implementation are described [here](simulation.md)
+  - Details of the implementation are described [here](simulation.md)
 
 ### Sample Results
         ...
@@ -47,4 +47,4 @@ marking a phase transition from low to high connectivity.
   ![alt example](supp/img/grid_seq.png)
 
 # Detailed Usage
-  For detailed setup, usage, and automated tests, see  [here](details.md)
+  - For detailed setup, usage, and automated tests, see  [here](details.md)
