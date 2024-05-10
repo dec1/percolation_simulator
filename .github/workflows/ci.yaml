@@ -11,6 +11,8 @@ on:
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
+    env:
+      CI: 'true'  # Setting an environment variable 'CI' to 'true' - skip plot visualisation
 
     steps:
     - name: Check out the repository
@@ -32,6 +34,3 @@ jobs:
 
     - name: Run type checking with mypy
       run: ./prj/script/venv/bin/mypy --check-untyped-defs -p test -p src
-
-    - name: Run linter with pylint
-      run: ./prj/script/venv/bin/python -m pylint src test

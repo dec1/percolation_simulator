@@ -1,4 +1,4 @@
-A fast 2d percolation threshold calculator for an arbitrarily sized 2d grid.
+A fast percolation simulator for an arbitrarily sized 2d grid.
 
 ## Percolation Theory
 Percolation theory studies how connected clusters form in a grid as random sites are occupied. 
@@ -43,6 +43,8 @@ marking a phase transition from low to high connectivity.
         ...average p: 0.5917819999999999 with (200x200) grid, 50 iterations in 38.44 secs 
   
   ![alt example](supp/img/perc_50_200x200.png)
+
+  ![alt example](supp/img/grid_seq.png)
 
 # Detailed Usage
   For detailed setup, usage, and automated tests, see  [here](details.md)
