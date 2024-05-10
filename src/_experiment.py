@@ -2,8 +2,6 @@
 from ._stepper import Stepper
 from ._cell_picker import CellPicker
 from ._grid_visual import visualize_grid_clusters, visualize_grid_sequence
-from typing import List, Tuple, Optional
-
 
 class Experiment:
     """  Create a grid and find percolation threshold, with visualization """

@@ -140,7 +140,7 @@ class Grid:
                 self.merge_clusters(cluster, cluster_a)
 
         perc = cluster.percolates()
-        if(perc):
+        if perc:
             self.perc_cluster = cluster
             self.perc_cell = cell
 
