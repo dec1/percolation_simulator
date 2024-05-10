@@ -38,4 +38,5 @@ def test_cell_stepper():
 
     for (row_idx, col_idx) in seq:
         cell = grid.cell_at(row_idx, col_idx)
-        cell.turn_black()
+        if cell:
+            cell.turn_black()

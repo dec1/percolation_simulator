@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Set
+from typing import Set, Optional
 
 # keep mypy happy, without actually importing (and thereby creating circular dependency  cluster <-> cell)
 from typing import TYPE_CHECKING
@@ -15,7 +15,7 @@ class Cluster:
 
 
     # -------------------------------
-    def __init__(self, grid: Grid):
+    def __init__(self, grid: Optional[Grid]):
         self.grid = grid
 
         self.cells: Set[Cell] = set()  # using set (instead of eg List) stops duplicates from being added (by mistake)

@@ -64,3 +64,5 @@ and I wanted to avoid requiring this of anyone else, wishing to run/test this pr
 
 ## Check Typing
     >  ./prj/script/venv/bin/mypy --check-untyped-defs -p test -p src
+
+        Success: no issues found in 17 source files

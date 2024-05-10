@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import matplotlib.colors as mcolors
 import matplotlib.patches as patches
 
-from typing import List, Tuple
+from typing import List, Tuple, Optional
 from src._grid import Grid
 from src._cell import Cell
 # -------------------------------------
@@ -76,13 +76,15 @@ def plot_grid_with_adjacent(num_rows, num_cols, row_idx, col_idx, adjacent_cells
 
     plt.show()
 # -------------------------------------
-def visualize_grid_clusters(grid: Grid):
+def visualize_grid_clusters(grid: Optional[Grid]):
 
         def color_cell(ax, cell: Cell, color):
             # Assuming cell has row and col attributes
             rect = patches.Rectangle((cell.col_idx, cell.row_idx), 1, 1, linewidth=0, edgecolor='black', facecolor=color)
             ax.add_patch(rect)
 
+        if not grid:
+            return
 
         # Initialize a white grid
         fig, ax = plt.subplots()
