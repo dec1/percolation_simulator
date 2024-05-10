@@ -49,8 +49,8 @@ def calculate_p_av(num_rows: int = 30, num_cols: int =30, batch_size: int = 30 )
 # ------------------------------------------------------------------
 if __name__ == "__main__":
 
-    num_rows = 10
-    num_cols = 10
+    num_rows = 20
+    num_cols = 20
     batch_size= 50
 
     res = calculate_p_av(num_rows=num_rows, num_cols=num_cols, batch_size=batch_size)

@@ -1,6 +1,7 @@
 import os
 
 class Config:
+    # set env var "CI" to disable default plot generation
 
     @classmethod
     def want_plots(Cls):
