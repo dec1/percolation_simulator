@@ -59,7 +59,7 @@ and I wanted to avoid requiring this of anyone else, wishing to run/test this pr
     
 ![alt example](supp/img/grid_seq.png)
 ![alt test_neigh_01](supp/img/test_neigh_01.png)
-![alt clusters](supp/img/clusters.png)
+
 
 
 ## Check Typing

@@ -46,5 +46,7 @@ marking a phase transition from low to high connectivity.
 
   ![alt example](supp/img/grid_seq.png)
 
+  ![alt example](supp/img/clusters_40x40.png)
+
 # Detailed Usage
   - For detailed setup, usage, and automated tests, see  [here](details.md)

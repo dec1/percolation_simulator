@@ -21,7 +21,7 @@ class PercResult:
     time_delta: float       # num of secs required to perform calculation
 
 # --------------------------------------------
-def calculate_p_av(num_rows: int = 30, num_cols: int =30, batch_size: int = 30 ) -> PercResult :
+def calculate_p_av(num_rows: int = 30, num_cols: int =30, batch_size: int = 300, want_vis_clusters=False) -> PercResult :
     """
     :return:            PercResult with ps, p_av, time_delta calculated
 
@@ -35,7 +35,7 @@ def calculate_p_av(num_rows: int = 30, num_cols: int =30, batch_size: int = 30 )
 
     ps: List[float] = []
     for i in range(batch_size):
-        p_i= Experiment().do_it(num_rows=num_rows, num_cols=num_cols)
+        p_i= Experiment().do_it(num_rows=num_rows, num_cols=num_cols, want_vis_clusters=want_vis_clusters)
         ps.append(float(p_i))
 
     p_av = sum(ps) / float(len(ps))
@@ -49,11 +49,11 @@ def calculate_p_av(num_rows: int = 30, num_cols: int =30, batch_size: int = 30 )
 # ------------------------------------------------------------------
 if __name__ == "__main__":
 
-    num_rows = 20
-    num_cols = 20
-    batch_size= 50
+    num_rows = 50
+    num_cols = 50
+    batch_size= 100
 
-    res = calculate_p_av(num_rows=num_rows, num_cols=num_cols, batch_size=batch_size)
+    res = calculate_p_av(num_rows=num_rows, num_cols=num_cols, batch_size=batch_size, want_vis_clusters=False)
 
     print(f"...average p: {res.p_av} with ({num_rows}x{num_cols}) grid, {batch_size} iterations in {res.time_delta} secs ")
 
