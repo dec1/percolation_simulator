@@ -1,0 +1,37 @@
+name: Python CI
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check out the repository
+      uses: actions/checkout@v4
+
+    - name: Set up Python 3.12
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+
+    - name: Set up dependencies using venv_create.sh
+      run: |
+        cd prj/script
+        ./venv_create.sh
+        cd ../..
+
+    - name: Run tests with pytest
+      run: ./prj/script/venv/bin/pytest test/
+
+    - name: Run type checking with mypy
+      run: ./prj/script/venv/bin/mypy --check-untyped-defs -p test -p src
+
+    - name: Run linter with pylint
+      run: ./prj/script/venv/bin/python -m pylint src test
