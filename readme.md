@@ -9,7 +9,7 @@ marking a phase transition from low to high connectivity.
 ### Simulations
 - Traditional
     - Traditional percolation simulations are slow because they evaluate the entire lattice afresh for each probability step.
-    - 
+
 - Newman-Ziff
   - The Newman-Ziff algorithm ( *"M. E. J. Newman and R. M. Zif. A fast monte carlo algorithm for site or bond
   percolation. Phys. Rev. Lett., 85:4104, Nov 2000."*) enhances efficiency by incrementally occupying sites and updating 
@@ -22,7 +22,7 @@ marking a phase transition from low to high connectivity.
       - Computes properties for all probabilities in a single simulation, yielding high-precision results with fewer computations.
 
   - This repo provides a Python implementation of the fast Newman-Ziff algorithm that calculates the percolation threshold for 
-    an arbitraruly-sized 2D grid.
+    an arbitrarily-sized 2D grid.
 
 ### Implementation
   - Details of the implementation are described [here](simulation.md)
