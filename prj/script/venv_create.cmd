@@ -4,7 +4,7 @@ REM set HTTPS_PROXY= http://10.110.15.6:8080
 call common.cmd
 
 
-CALL python -m venv %script_dir%\venv
+CALL python -m venv %venv_dir%
 
 echo ".....virtual environment created"
 
