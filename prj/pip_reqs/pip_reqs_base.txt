@@ -1,0 +1,12 @@
+# direct dependencies used by project
+# for snapshot of all (recursive) dependencies in precise versions tested - see  "pip_reqs.txt"
+
+# auto tests
+pytest
+
+# quality control
+mypy
+pylint
+
+numpy
+matplotlib
