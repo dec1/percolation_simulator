@@ -10,7 +10,10 @@ on:
 
 jobs:
   build-and-test:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
     env:
       CI: 'true'  # Setting an environment variable 'CI' to 'true' - skip plot visualisation
 
@@ -23,17 +26,54 @@ jobs:
       with:
         python-version: '3.12'
 
-    - name: Set up dependencies using venv_create.sh
+    - name: Set up dependencies (Linux)
+      if: runner.os == 'Linux'
       run: |
         cd prj/script
         ./venv_create.sh
         cd ../..
 
-    - name: Run tests with pytest
+    - name: Set up dependencies (Windows)
+      if: runner.os == 'Windows'
+      run: |
+        cd prj\script
+        .\venv_create.cmd
+        cd ..\..
+
+    - name: Install dependencies (Linux)
+      if: runner.os == 'Linux'
+      run: |
+        cd prj/script
+        ./pip_reqs_install.sh
+        cd ../..
+
+    - name: Install dependencies (Windows)
+      if: runner.os == 'Windows'
+      run: |
+        cd prj\script
+        .\pip_reqs_install.cmd
+        cd ..\..
+
+    - name: Run tests with pytest (Linux)
+      if: runner.os == 'Linux'
       run: ./prj/venv/bin/pytest test/
 
-    - name: Run type checking with mypy
+    - name: Run tests with pytest (Windows)
+      if: runner.os == 'Windows'
+      run: .\prj\venv\Scripts\pytest.exe test\
+
+    - name: Run type checking with mypy (Linux)
+      if: runner.os == 'Linux'
       run: ./prj/venv/bin/mypy --check-untyped-defs -p test -p src
 
-    #- name: Run linter with pylint
+    - name: Run type checking with mypy (Windows)
+      if: runner.os == 'Windows'
+      run: .\prj\venv\Scripts\mypy.exe --check-untyped-defs -p test -p src
+
+    #- name: Run linter with pylint (Linux)
+    #  if: runner.os == 'Linux'
     #  run: ./prj/script/venv/bin/python -m pylint src
+
+    #- name: Run linter with pylint (Windows)
+    #  if: runner.os == 'Windows'
+    #  run: .\prj\venv\Scripts\python.exe -m pylint src
