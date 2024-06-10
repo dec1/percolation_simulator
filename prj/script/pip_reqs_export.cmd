@@ -1,4 +1,4 @@
-SET "script_dir=%~dp0"
-SET "script_dir=%script_dir:~0,-1%"   
+@echo off
+call common.cmd
 
-CALL %script_dir%\venv\Scripts\pip freeze > ..\pip_reqs.txt
+CALL %venv_dir%\Scripts\pip freeze > %pip_reqs_dir%\pip_reqs.txt
