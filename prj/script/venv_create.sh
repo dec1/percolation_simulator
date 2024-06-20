@@ -1,9 +1,11 @@
 #!/bin/bash
 
-source ./common.sh
+script_dir=$(dirname "$0")
+source ${script_dir}/common.sh
 
+echo "using python version: " ${py_ver}
 
-python3 -m venv ${venv_dir}
+python${py_ver} -m venv ${venv_dir}
 
 echo ".....virtual environment created"
 

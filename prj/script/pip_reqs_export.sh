@@ -1,6 +1,7 @@
 #!/bin/bash
 
-source common.sh
+script_dir=$(dirname "$0")
+source ${script_dir}/common.sh
 
 # persist the exact dependencies (recursively)
-${venv_dir}/bin/pip freeze > ${pip_reqs_dir}/pip_reqs.txt
+${venv_dir}/bin/python -m pip freeze > ${pip_reqs_dir}/pip_reqs.txt

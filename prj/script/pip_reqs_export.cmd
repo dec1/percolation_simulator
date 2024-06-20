@@ -1,4 +1,4 @@
 @echo off
 call common.cmd
 
-CALL %venv_dir%\Scripts\pip freeze > %pip_reqs_dir%\pip_reqs.txt
+CALL %venv_dir%\Scripts\python -m pip freeze > %pip_reqs_dir%\pip_reqs.txt
