@@ -1,5 +1,6 @@
 name: Python CI
 
+ # ------------------------------
 on:
   push:
     branches:
@@ -7,7 +8,7 @@ on:
   pull_request:
     branches:
       - master
-
+ # ----------------------------------------
 jobs:
   build-and-test:
     runs-on: ${{ matrix.os }}
@@ -22,11 +23,13 @@ jobs:
     - name: Check out the repository
       uses: actions/checkout@v4
 
+  # ---- Set up Python  --------------------------------------------------
     - name: Set up Python
       uses: actions/setup-python@v5
       with:
         python-version: ${{ env.PYTHON_VERSION }}
 
+  # ---- Set up dependencies ---------------------------------------------
     - name: Set up dependencies (Linux)
       if: runner.os == 'Linux'
       run: |
@@ -41,6 +44,7 @@ jobs:
         .\venv_create.cmd ${{ env.PYTHON_VERSION }}
         cd ..\..
 
+  # ---- Install dependencies ---------------------------------------------
     - name: Install dependencies (Linux)
       if: runner.os == 'Linux'
       run: |
@@ -55,6 +59,7 @@ jobs:
         .\pip_reqs_install.cmd
         cd ..\..
 
+  # ---- Tests ------------------------------------------------------------
     - name: Run tests with pytest (Linux)
       if: runner.os == 'Linux'
       run: ./prj/venv/bin/pytest test/
@@ -63,6 +68,7 @@ jobs:
       if: runner.os == 'Windows'
       run: .\prj\venv\Scripts\pytest.exe test\
 
+  # ---- MyPy  ------------------------------------------------------------
     - name: Run type checking with mypy (Linux)
       if: runner.os == 'Linux'
       run: ./prj/venv/bin/mypy --check-untyped-defs -p test -p src
@@ -71,6 +77,7 @@ jobs:
       if: runner.os == 'Windows'
       run: .\prj\venv\Scripts\mypy.exe --check-untyped-defs -p test -p src
 
+  # ---- PyLint  ----------------------------------------------------------
     - name: Run linter with pylint (Linux)
       if: runner.os == 'Linux'
       run:  ./prj/venv/bin/python -m pylint --errors-only src test
