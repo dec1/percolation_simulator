@@ -1,5 +1,6 @@
 @echo off
-call common.cmd
+set script_dir=%~dp0
+call %script_dir%\common.cmd
 
 CALL %venv_dir%\Scripts\python -m pip install --upgrade pip
 CALl %venv_dir%\Scripts\python -m pip install --upgrade setuptools

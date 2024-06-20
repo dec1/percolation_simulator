@@ -16,28 +16,29 @@ jobs:
         os: [ubuntu-latest, windows-latest]
     env:
       CI: 'true'  # Setting an environment variable 'CI' to 'true' - skip plot visualisation
+      PYTHON_VERSION: '3.12'  # Define the Python version in single place
 
     steps:
     - name: Check out the repository
       uses: actions/checkout@v4
 
-    - name: Set up Python 3.12
+    - name: Set up Python
       uses: actions/setup-python@v5
       with:
-        python-version: '3.12'
+        python-version: ${{ env.PYTHON_VERSION }}
 
     - name: Set up dependencies (Linux)
       if: runner.os == 'Linux'
       run: |
         cd prj/script
-        ./venv_create.sh 3.12
+        ./venv_create.sh ${{ env.PYTHON_VERSION }}
         cd ../..
 
     - name: Set up dependencies (Windows)
       if: runner.os == 'Windows'
       run: |
         cd prj\script
-        .\venv_create.cmd
+        .\venv_create.cmd ${{ env.PYTHON_VERSION }}
         cd ..\..
 
     - name: Install dependencies (Linux)
