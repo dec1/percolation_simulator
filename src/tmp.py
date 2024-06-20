@@ -54,16 +54,44 @@ def calculate_p_av(
 
 
 # ------------------------------------------------------------------
+file_path = "/Users/declan/Documents/zone/high/text/info/tmp.txt"
 if __name__ == "__main__":
+    import re
 
-    num_rows = 50
-    num_cols = 50
-    batch_size = 100
+    declan = 3449.60
+    irina = 3184.34
 
-    res = calculate_p_av(num_rows=num_rows, num_cols=num_cols, batch_size=batch_size, want_vis_clusters=False)
+    combined = declan + irina
+    half = combined / 2.0
+    declan_owe = half - declan
+    irina_owe = half - irina
+    print(f"declan_owe = {declan_owe}, irina_owe = {irina_owe}")
 
-    print(
-        f"...average p: {res.p_av} with ({num_rows}x{num_cols}) grid, {batch_size} iterations in {res.time_delta} secs "
-    )
+    entries = []
+    current_entry = []
+    total = 0.0
 
-    visualize_as_histogram(res.ps, x_label="p", title=f"Percolation in {batch_size} ({num_rows}x{num_cols}) grids")
+    with open(file_path, 'r') as file:
+        for line in file:
+            line = line.strip()
+            if line:
+                if line in current_entry:
+                    continue
+                if line == "Kartenzahlung":
+                    continue
+                current_entry.append(line)
+            else:
+                if current_entry:
+                    entries.append(current_entry)
+                    match = re.search(r'\s*-\s*-(\d+[.,]\d+)', '\n'.join(current_entry))
+                    if match:
+                        # print(f"found match: {match.group(1)}")
+                        total += float(match.group(1).replace(',', '.'))
+                    # else:
+                    # print(f"no match on current_entry: {current_entry}")
+                    current_entry = []
+
+    for entry in entries:
+        print('\n'.join(entry) + '\n')
+
+    print(f"\ntotal = {total}")

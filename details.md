@@ -23,7 +23,7 @@ and I wanted to avoid requiring this of anyone else, wishing to run/test this pr
      
 
 ## Execute
-    ./prj/script/venv/bin/python -m src.main
+    ./prj/venv/bin/python -m src.main
 
         ...perc_value = 0.5967
         ...perc_value = 0.582025
@@ -39,7 +39,7 @@ and I wanted to avoid requiring this of anyone else, wishing to run/test this pr
  ![alt example](supp/img/perc_50_200x200.png)
 
 ## Test
-    ex_auto>  ./prj/script/venv/bin/pytest test/
+    ex_auto>  ./prj/venv/bin/pytest test/
 
     ============================= test session starts ==============================
     collecting ... collected 8 items
@@ -63,13 +63,15 @@ and I wanted to avoid requiring this of anyone else, wishing to run/test this pr
 
 
 ## Check Typing
-    >  ./prj/script/venv/bin/mypy --check-untyped-defs -p test -p src
+    >  ./prj/venv/bin/mypy --check-untyped-defs -p test -p src
 
-        Success: no issues found in 17 source files
-<!--
+        Success: no issues found in 18 source files
+
 ## Check Lint
-    > ./prj/script/venv/bin/python -m pylint src test
+    > ./prj/venv/bin/python -m pylint --errors-only src test
 
-        --------------------------------------------------------------------
-        Your code has been rated at 10.00/10 (previous run: 10.00/10, +0.00)
--->
+
+## Formatting
+    `> ./prj/venv/bin/black --skip-string-normalization --line-length=120 src test [--check [--diff]]`
+    - `--check` -dont actually modify files. list files which would be modified 
+      - `--diff` show actual changes in files

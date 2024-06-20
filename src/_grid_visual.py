@@ -8,8 +8,10 @@ import matplotlib.patches as patches
 from typing import List, Tuple, Optional
 from src._grid import Grid
 from src._cell import Cell
+
+
 # -------------------------------------
-def visualize_grid_sequence(num_rows: int, num_cols: int, sequence: List[Tuple[int,int]]):
+def visualize_grid_sequence(num_rows: int, num_cols: int, sequence: List[Tuple[int, int]]):
     """
     Visualizes the order of cells in the sequence, using a color map.
     """
@@ -37,7 +39,6 @@ def visualize_grid_sequence(num_rows: int, num_cols: int, sequence: List[Tuple[i
         text_color = "white" if normalized[row, col] < 0.5 else "black"
         plt.text(col, row, str(order), color=text_color, ha="center", va="center")
 
-
     # Optionally, add a colorbar to indicate the sequence order
     plt.colorbar(label='Sequence Order')
 
@@ -46,9 +47,9 @@ def visualize_grid_sequence(num_rows: int, num_cols: int, sequence: List[Tuple[i
     plt.ylabel('Row Index')
     plt.show()
 
-# -------------------------------------
-def plot_grid_with_adjacent(num_rows, num_cols, row_idx, col_idx, adjacent_cells : List[Tuple[int, int]]):
 
+# -------------------------------------
+def plot_grid_with_adjacent(num_rows, num_cols, row_idx, col_idx, adjacent_cells: List[Tuple[int, int]]):
     """
     Visualizes the grid of size (num_rows x num_cols) with cell at (row_idx, col_idx) and adjacent_cells
     using a color map.
@@ -75,51 +76,55 @@ def plot_grid_with_adjacent(num_rows, num_cols, row_idx, col_idx, adjacent_cells
     plt.tick_params(axis='both', which='both', length=0, labelbottom=False, labelleft=False)
 
     plt.show()
+
+
 # -------------------------------------
 def visualize_grid_clusters(grid: Optional[Grid]):
 
-        def color_cell(ax, cell: Cell, color):
-            # Assuming cell has row and col attributes
-            rect = patches.Rectangle((cell.col_idx, cell.row_idx), 1, 1, linewidth=0, edgecolor='black', facecolor=color)
+    def color_cell(ax, cell: Cell, color):
+        # Assuming cell has row and col attributes
+        rect = patches.Rectangle((cell.col_idx, cell.row_idx), 1, 1, linewidth=0, edgecolor='black', facecolor=color)
+        ax.add_patch(rect)
+
+    if not grid:
+        return
+
+    # Initialize a white grid
+    fig, ax = plt.subplots()
+    ax.set_xlim(0, grid.num_cols)
+    ax.set_ylim(0, grid.num_rows)
+    ax.invert_yaxis()  # Invert y axis to have origin at top-left
+
+    # Color mapping
+    for cluster in grid.clusters:
+        for cell in cluster.cells:
+            color = 'yellow' if cluster == grid.perc_cluster else 'blue'
+            if cell == grid.perc_cell:
+                color = 'green'
+            color_cell(ax, cell, color)
+
+    # Non-cluster cells, assuming you have a way to determine these, are colored white by default
+
+    # Draw grid lines
+    for x in range(grid.num_cols):
+        for y in range(grid.num_rows):
+            rect = patches.Rectangle((x, y), 1, 1, linewidth=1, edgecolor='black', facecolor='none')
             ax.add_patch(rect)
 
-        if not grid:
-            return
+    # Show steps taken
+    plt.text(0, -1, f'Steps taken: {grid.steps_taken}', fontsize=12)
 
-        # Initialize a white grid
-        fig, ax = plt.subplots()
-        ax.set_xlim(0, grid.num_cols)
-        ax.set_ylim(0, grid.num_rows)
-        ax.invert_yaxis()  # Invert y axis to have origin at top-left
+    plt.axis('off')
+    plt.show()
 
-        # Color mapping
-        for cluster in grid.clusters:
-            for cell in cluster.cells:
-                color = 'yellow' if cluster == grid.perc_cluster else 'blue'
-                if cell == grid.perc_cell:
-                    color = 'green'
-                color_cell(ax, cell, color)
 
-        # Non-cluster cells, assuming you have a way to determine these, are colored white by default
-
-        # Draw grid lines
-        for x in range(grid.num_cols):
-            for y in range(grid.num_rows):
-                rect = patches.Rectangle((x, y), 1, 1, linewidth=1, edgecolor='black', facecolor='none')
-                ax.add_patch(rect)
-
-        # Show steps taken
-        plt.text(0, -1, f'Steps taken: {grid.steps_taken}', fontsize=12)
-
-        plt.axis('off')
-        plt.show()
 # -------------------------
-def visualize_as_histogram(ps:List[float], x_label: str = "Value", title: str = 'Histogram of p values'):
-    #counts, bins = np.histogram(ps)
-    #plt.stairs(counts, bins)
+def visualize_as_histogram(ps: List[float], x_label: str = "Value", title: str = 'Histogram of p values'):
+    # counts, bins = np.histogram(ps)
+    # plt.stairs(counts, bins)
 
     plt.hist(ps, bins='auto')
-    #plt.hist(ps, bins=100)  # 'auto' lets matplotlib decide the number of bins
+    # plt.hist(ps, bins=100)  # 'auto' lets matplotlib decide the number of bins
     plt.title(title)
     plt.xlabel(x_label)
     plt.ylabel('Frequency')

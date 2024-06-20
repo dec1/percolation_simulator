@@ -5,7 +5,7 @@ from typing import List, Tuple, Optional
 
 
 class Stepper:
-    """  Given dims of grid (num_rows x num_cols)  and a sequences of cells, turn them black, merge any clusters. """
+    """Given dims of grid (num_rows x num_cols)  and a sequences of cells, turn them black, merge any clusters."""
 
     num_rows: int = -1
     num_cols: int = -1
@@ -23,7 +23,7 @@ class Stepper:
         if (indices is None) or (self.grid is None):
             return False
 
-        for (row_idx, col_idx) in indices:
+        for row_idx, col_idx in indices:
             percolates = self.grid.step(row_idx, col_idx)
             if percolates:
                 cluster = self.grid.perc_cluster

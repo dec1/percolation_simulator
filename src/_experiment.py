@@ -1,12 +1,14 @@
-
 from ._stepper import Stepper
 from ._cell_picker import CellPicker
 from ._grid_visual import visualize_grid_clusters, visualize_grid_sequence
 
-class Experiment:
-    """  Create a grid and find percolation threshold, with visualization """
 
-    def do_it(self, num_rows: int = 5, num_cols: int = 6, want_vis_seq : bool = False, want_vis_clusters : bool = False) -> int :
+class Experiment:
+    """Create a grid and find percolation threshold, with visualization"""
+
+    def do_it(
+        self, num_rows: int = 5, num_cols: int = 6, want_vis_seq: bool = False, want_vis_clusters: bool = False
+    ) -> int:
 
         stepper = Stepper(num_rows, num_cols)
         seq = CellPicker(num_rows, num_cols).seq_random()
@@ -16,7 +18,7 @@ class Experiment:
 
         stepper.do_steps(seq)
         grid = stepper.grid
-        if (grid is None):
+        if grid is None:
             print("...empty grid in experiment??")
             return -1
 

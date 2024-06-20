@@ -7,8 +7,9 @@ from typing import List, Tuple, Set, Optional
 
 Row = List[Cell]  # Alias for List (so we can use eg "List[Row]"  instead of "List[List[Cell]]" )
 
+
 class Grid:
-    """  Matrix of size (rows x cols) cells """
+    """Matrix of size (rows x cols) cells"""
 
     # -------------------------------
     def __init__(self, num_rows: int, num_cols: int):
@@ -37,20 +38,23 @@ class Grid:
                 cell = Cell(row_idx=row_idx, col_idx=col_idx, is_black=False, grid=self)
                 row.append(cell)
             self.rows.append(row)
+
     # -------------------------------
     def perc_value(self):
-        return float(self.steps_taken)/(float(self.num_cols * self.num_rows))
+        return float(self.steps_taken) / (float(self.num_cols * self.num_rows))
+
     # -------------------------------
     @classmethod
-    def indices_adjacent_to(Cls, num_rows: int, num_cols: int, row_idx: int, col_idx: int) -> Optional[List[Tuple[int,int]]]:
-        """ return list of cells adjacent to given cell (row_idx, col_idx) in grid of size (num_rows x num_cols) """
-
-
+    def indices_adjacent_to(
+        Cls, num_rows: int, num_cols: int, row_idx: int, col_idx: int
+    ) -> Optional[List[Tuple[int, int]]]:
+        """return list of cells adjacent to given cell (row_idx, col_idx) in grid of size (num_rows x num_cols)"""
 
         deltas = [
-            (-1, 0),            # Above row
-            (0, -1), (0, 1),    # Same row
-            (1, 0),             # Below row
+            (-1, 0),  # Above row
+            (0, -1),
+            (0, 1),  # Same row
+            (1, 0),  # Below row
         ]
 
         ret = []
@@ -61,9 +65,14 @@ class Grid:
                 ret.append((adj_row, adj_col))
 
         return ret
+
     # -------------------------------
-    def cells_adjacent_to(self, row_idx: int, col_idx: int,) -> Optional[List[Cell]]:
-        """ return list of cells adjacent to given cell (row_idx, col_idx) """
+    def cells_adjacent_to(
+        self,
+        row_idx: int,
+        col_idx: int,
+    ) -> Optional[List[Cell]]:
+        """return list of cells adjacent to given cell (row_idx, col_idx)"""
 
         cell = self.cell_at(row_idx, col_idx)
         if cell is None:
@@ -79,7 +88,7 @@ class Grid:
         if indices is None:
             return ret
 
-        for (row_idx, col_idx) in indices:
+        for row_idx, col_idx in indices:
             cell = self.cell_at(row_idx, col_idx)
             if not cell is None:
                 ret.append(cell)
@@ -88,10 +97,10 @@ class Grid:
 
     # -------------------------------
     def cell_at(self, row_idx: int, col_idx: int) -> Optional[Cell]:
-        """ return cell at given posn (col_idx,row_idx), or None if invalid
+        """return cell at given posn (col_idx,row_idx), or None if invalid
 
-         order of indices: (row_idx, col_idx) -not- (col_idx, row_idx)~(x,y)
-         same convention as numpy/pandas """
+        order of indices: (row_idx, col_idx) -not- (col_idx, row_idx)~(x,y)
+        same convention as numpy/pandas"""
 
         # check for out of bounds (num_rows, num_cols) of grid
         if row_idx < 0 or (row_idx > self.num_rows):
@@ -106,7 +115,6 @@ class Grid:
             return None
         row = self.rows[row_idx]
 
-
         if col_idx > len(row):
             return None
         cell = row[col_idx]
@@ -114,8 +122,8 @@ class Grid:
 
     # -------------------------------
     def step(self, row_idx: int, col_idx: int) -> bool:
-        """ turn cell at given posn (col_idx,row_idx) black, merge any clusters.
-         return whether true if percolation has occured in this step """
+        """turn cell at given posn (col_idx,row_idx) black, merge any clusters.
+        return whether true if percolation has occured in this step"""
 
         cell = self.cell_at(row_idx, col_idx)
         if cell is None:
@@ -129,14 +137,13 @@ class Grid:
         cell.cluster = cluster
         self.clusters.add(cluster)
 
-
         adjacent_cells = self.cells_adjacent_to(row_idx, col_idx)
         if adjacent_cells is None:
             return False
 
         for cell_a in adjacent_cells:
             if cell_a.is_black:
-                cluster_a  = cell_a.cluster
+                cluster_a = cell_a.cluster
                 self.merge_clusters(cluster, cluster_a)
 
         perc = cluster.percolates()
@@ -148,14 +155,14 @@ class Grid:
 
     # -------------------------------
     def merge_clusters(self, cla: Cluster, clb: Optional[Cluster]):
-        """ merge any clusters.
-         return whether true if percolation has occurred in this step """
+        """merge any clusters.
+        return whether true if percolation has occurred in this step"""
 
         if (clb is None) or (cla is clb):
             return
 
         cla.merge(clb)
-        if (not clb in self.clusters):
+        if not clb in self.clusters:
             halt = 1
         self.clusters.remove(clb)
-        halt=1
+        halt = 1
