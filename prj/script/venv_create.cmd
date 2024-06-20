@@ -31,22 +31,19 @@ echo Using Python version: %py_ver%
 REM -----------------------------------------------------------
 REM -----------------------------------------------------------
 
-REM Create the virtual environment using the py launcher
+echo ".....creating venv"
 CALL %py_command% -m venv "%venv_dir%
-
-echo ".....virtual environment created"
+echo ".....venv created"
 
 CALL %venv_dir%\Scripts\activate
 
-echo ".....pip reqs installing...."
 
+echo ".....installing pip reqs ...."
 CALL  %script_dir%\pip_reqs_install.cmd
-
 echo ".....pip reqs installed"
 
 CALL %venv_dir%\Scripts\deactivate
 
 echo ".....venv ready"
-
 
 pause

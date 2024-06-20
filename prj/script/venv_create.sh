@@ -9,24 +9,19 @@ source ${script_dir}/common.sh
 #   - that set in `common.sh`  if any, or if not set there then
 #   - whatever is found as "python" on path
 py_ver=${1:-$py_ver}
-
-
 echo "using python version: " ${py_ver}
 
-python${py_ver} -m venv ${venv_dir}
 
-echo ".....virtual environment created"
+echo "creating venv..... "
+python${py_ver} -m venv ${venv_dir}
+echo ".....venv created"
 
 source ${venv_dir}/bin/activate
 
-echo ".....pip reqs installing...."
-
-
+echo ".....installing pip reqs ...."
 source  ${script_dir}/pip_reqs_install.sh
-
 echo ".....pip reqs installed"
 
-#
-# source $script_dir/venv/bin/deactivate
 
+source $script_dir/venv/bin/deactivate
 echo ".....venv ready"
