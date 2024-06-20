@@ -21,16 +21,16 @@ jobs:
     - name: Check out the repository
       uses: actions/checkout@v4
 
-    - name: Set up Python 3.11
+    - name: Set up Python 3.12
       uses: actions/setup-python@v5
       with:
-        python-version: '3.11'
+        python-version: '3.12'
 
     - name: Set up dependencies (Linux)
       if: runner.os == 'Linux'
       run: |
         cd prj/script
-        ./venv_create.sh
+        ./venv_create.sh 3.12
         cd ../..
 
     - name: Set up dependencies (Windows)

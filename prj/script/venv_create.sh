@@ -3,6 +3,14 @@
 script_dir=$(dirname "$0")
 source ${script_dir}/common.sh
 
+# let caller (eg ci pipeline) override python version, by passing as arg to his script, eg
+#   - `venv_create.sh 3.11`
+# if none passed then the python version used is
+#   - that set in `common.sh`  if any, or if not set there then
+#   - whatever is found as "python" on path
+py_ver=${1:-$py_ver}
+
+
 echo "using python version: " ${py_ver}
 
 python${py_ver} -m venv ${venv_dir}
