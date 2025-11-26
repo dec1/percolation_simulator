@@ -1,6 +1,6 @@
 A fast percolation simulator for an arbitrarily sized 2d grid.
 
-[![CI](https://github.com/dec1/percolation_simulator/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/dec1/percolation_simulator/actions/workflows/ci.yml)
+[![CI](https://github.com/dec1/percolation_simulator/actions/workflows/ci.yaml/badge.svg?branch=master)](https://github.com/dec1/percolation_simulator/actions/workflows/ci.yaml)
 
 
 ## Percolation Theory
