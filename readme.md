@@ -1,5 +1,8 @@
 A fast percolation simulator for an arbitrarily sized 2d grid.
 
+[![CI](https://github.com/dec1/percolation_simulator/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/dec1/percolation_simulator/actions/workflows/ci.yml)
+
+
 ## Percolation Theory
 Percolation theory studies how connected clusters form in a grid as random sites are occupied. 
 This theory is essential for understanding phenomena like fluid flow in porous materials and the spread of diseases. 
